@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="template_telecomunications_account_move" inherit_id="account.report_invoice_with_payments">
+        <xpath expr='//t[@t-call="web.html_container"]' position="replace">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <th t-call="web.basic_layout">
+                        <style>
+                            .header {
+                                position: absolute;
+                                top: 0px;
+                                margin: 0px;
+                                right: 0px;
+                                page-break-before: unset !important;
+                                page-break-after: avoid !important;
+                            }
+
+                            @media print {
+                                .header:first-child {
+                                    page-break-after: always !important;
+                                }
+                            }
+                        </style>
+                        <t t-set="page_count" t-value="1" />
+                        <div class="header">
+                            <!-- Logo -->
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)"
+                                style="position: absolute; height: 220px; width: 410px; float: left; top: -30px;"
+                                alt="Logo" />
+                            <table t-foreach="o.company_id" t-as="comp">
+                                <!-- Iconos -->
+                                <!-- <svg viewBox="0 0 792 612" style="position: absolute; top: -70PX; right: -90PX; width: 250px; height: 320px;">
+                                    <style type="text/css">
+                                        .st5{fill-rule:evenodd;clip-rule:evenodd;fill:#165C7D;}
+                                        .st6{fill-rule:evenodd;clip-rule:evenodd;fill:#168DB2;}
+                                        .st7{fill-rule:evenodd;clip-rule:evenodd;fill:#168DB2;}
+                                        .st8{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+                                    </style>
+                                    <rect x="343.81" y="78.96" class="st5" width="148.82" height="465.17"/>
+                                    <g>
+                                        <g>
+                                            <g id="Shape_6_">
+                                                <rect x="361.75" y="255.54" class="st6" width="112.94" height="112"/>
+                                            </g>
+                                            <g id="Shape_5_">
+                                                <polygon class="st7" points="361.75,255.54 361.75,367.55 474.68,367.55 			"/>
+                                            </g>
+                                            <g id="Web_1_">
+                                                <path class="st8" d="M424.76,326.76l-0.9-0.53l0.11,1.17l0.23,13.47l0.22,1.43l0.84-1.18l3.42-4.55l2.36,3.38l0.22,0.26h3.92
+                                                    l-0.62-0.94l-3.12-4.61l5.37-1.51l1.41-0.38l-1.23-0.64L424.76,326.76z M418.18,281.08c-16.38,0-29.67,13.53-29.67,30.04
+                                                    c0,16.52,13.29,29.99,29.67,29.99c0.97,0,1.86-0.02,2.54-0.11l0.62-0.07l-0.05-0.54l-0.51-3.6l-0.06-0.46l-0.54,0.01
+                                                    c-0.31,0.04-0.57,0.1-0.82,0.1c-0.42,0-0.78,0.13-1.18,0.13c-5.22,0-10.16-1.82-14.54-4.94c18.63-6.83,32.23-15.97,38.9-26.06
+                                                    c0.49,1.93,0.73,3.82,0.73,5.56c0,6.08-2.19,12.07-6.45,16.8l-0.37,0.52l0.54,0.33l3.09,1.88l0.39,0.32l0.29-0.49
+                                                    c4.62-5.42,7.16-12.27,7.16-19.37C447.93,294.61,434.56,281.08,418.18,281.08z M414.86,291.05c0.68-1.71,0.68-3.37,0.31-4.95
+                                                    c0.98-0.18,1.98-0.38,3.02-0.38c3.32,0,6.67,0.78,9.88,2.19c-3.21,3.86-8.54,8.17-14.92,12.1c-0.59-1.54-1.09-3.22-1.54-4.91
+                                                    C413.18,293.8,414.27,292.46,414.86,291.05z M410.62,287.06c0.28,0.77,0.32,1.48,0.02,2.14c-0.88,2.24-3.99,4.24-7,4.6
+                                                    c-0.77,0.01-1.98,0-3.09-0.6C403.31,290.44,406.77,288.32,410.62,287.06z M397.61,296.85c1.81,1.22,4.06,1.81,6.57,1.5
+                                                    c1.05-0.04,2.24-0.4,3.37-0.86c0.46,1.83,0.94,3.42,1.53,4.84c-5.44,3.04-10.85,5.26-15.75,6.68
+                                                    C393.71,304.52,395.19,300.38,397.61,296.85z M399.73,328.15c-3.6-4.07-5.82-8.92-6.34-14.35c5.46-1.44,11.51-3.84,17.54-7.19
+                                                    c2.47,5.01,5.68,9.06,9.58,12.27C414.45,322.32,407.5,325.46,399.73,328.15z M424.59,316.23c-3.95-2.86-7.24-6.86-9.68-11.96
+                                                    c7.35-4.44,13.77-9.64,17.36-14.04c3.47,2.34,6.44,5.68,8.27,9.7C437.87,305.51,432.44,311.13,424.59,316.23z"/>
+                                            </g>
+                                        </g>
+                                        <g>
+                                            <g id="Shape_4_">
+                                                <rect x="361.75" y="93.42" class="st6" width="112.94" height="112"/>
+                                            </g>
+                                            <g id="Shape_3_">
+                                                <polygon class="st7" points="361.75,93.28 361.75,205.29 474.68,205.29 			"/>
+                                            </g>
+                                            <g id="Phone_1_">
+                                                <path class="st8" d="M430.55,143.49v-6.52h-7.39v4.66h-10.13v-4.66h-7.48l0.12,6.38c0,0-6.84,10.82-9.37,15.34
+                                                    c-2.53,4.52-2.6,8.56-2.6,8.56v8.44h48.84v-9.73c0-3.66-2.33-6.94-2.33-6.94L430.55,143.49z M413.64,161.72h-4.66v-3.44h4.66
+                                                    V161.72z M413.64,156.07h-4.66v-3.47h4.66V156.07z M413.64,150.37h-4.66v-3.46h4.66V150.37z M420.3,161.72h-4.64v-3.44h4.64
+                                                    V161.72z M420.3,156.07h-4.64v-3.47h4.64V156.07z M420.3,150.37h-4.64v-3.46h4.64V150.37z M426.82,161.72h-4.64v-3.44h4.64
+                                                    V161.72z M426.82,156.07h-4.64v-3.47h4.64V156.07z M426.82,150.37h-4.64v-3.46h4.64V150.37z M402.66,139.71
+                                                    c-4.13,3.26-11.14,3.13-16.07,1.67c-0.2,3.6-0.32,8.06,8.75,7.03C404.44,147.42,402.66,139.71,402.66,139.71z M449.84,141.38
+                                                    c-4.94,1.46-11.94,1.59-16.08-1.67c0,0-1.76,7.71,7.34,8.71C450.17,149.44,450.04,144.98,449.84,141.38z M402.79,137.65
+                                                    c-0.04-1.75,0.8-4.24,5.08-5.03c4.32-0.78,10.4-1.29,16.84-0.59c6.44,0.7,8.91,2.47,8.91,5.65c8.69,4.27,15.99,2.04,15.99,2.04
+                                                    s0.44-3.4-3.61-10.24c-23.31-9.04-49.03-3.05-55.62,0c-2.47,2.74-3.84,10.24-3.84,10.24
+                                                    C395.73,142.43,402.79,137.65,402.79,137.65z"/>
+                                            </g>
+                                        </g>
+                                        <g>
+                                            <g id="Shape_2_">
+                                                <rect x="361.75" y="417.67" class="st6" width="112.94" height="112"/>
+                                            </g>
+                                            <g id="Shape_1_">
+                                                <polygon class="st7" points="361.75,417.67 361.75,529.67 474.68,529.67 			"/>
+                                            </g>
+                                            <g id="Location_1_">
+                                                <path class="st8" d="M418.2,439.59c-12.34,0-22.36,10.18-22.36,22.76c0,1.2,0.08,2.39,0.26,3.54c1,10.35,10.09,29.62,21.86,41.88
+                                                    c13.38-15.34,19.01-30.15,21.09-37.1c0.99-2.59,1.55-5.39,1.55-8.31C440.59,449.77,430.57,439.59,418.2,439.59z M418.2,471.28
+                                                    c-4.85,0-8.78-4-8.78-8.94c0-4.95,3.93-8.96,8.78-8.96c4.87,0,8.84,4.02,8.84,8.96C427.04,467.28,423.07,471.28,418.2,471.28z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg> -->
+                                <!-- <svg viewBox="0 0 792 612" style="position: absolute; top: -25PX; right: -170PX; width: 250px; height: 320px;">
+                                    <style type="text/css">
+                                        .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#069080;}
+                                    </style>
+                                    <g id="New_Layer">
+                                        <g>
+                                            <g>
+                                                <path class="st0" d="M46.9,186.8l-1.1-0.6l0.1,1.4l0.3,16l0.3,1.7l1-1.4l4.1-5.4l2.8,4l0.3,0.3h4.6l-0.7-1.1l-3.7-5.5l6.4-1.8
+                                                    l1.7-0.5l-1.5-0.8L46.9,186.8z M39.1,132.7c-19.4,0-35.2,16-35.2,35.6c0,19.6,15.8,35.5,35.2,35.5c1.1,0,2.2,0,3-0.1l0.7-0.1
+                                                    l-0.1-0.6l-0.6-4.3l-0.1-0.5l-0.6,0c-0.4,0-0.7,0.1-1,0.1c-0.5,0-0.9,0.2-1.4,0.2c-6.2,0-12-2.2-17.2-5.9
+                                                    c22.1-8.1,38.2-18.9,46.1-30.9c0.6,2.3,0.9,4.5,0.9,6.6c0,7.2-2.6,14.3-7.6,19.9l-0.4,0.6l0.6,0.4l3.7,2.2l0.5,0.4l0.3-0.6
+                                                    c5.5-6.4,8.5-14.5,8.5-23C74.4,148.7,58.5,132.7,39.1,132.7z M35.2,144.5c0.8-2,0.8-4,0.4-5.9c1.2-0.2,2.3-0.5,3.6-0.5
+                                                    c3.9,0,7.9,0.9,11.7,2.6c-3.8,4.6-10.1,9.7-17.7,14.3c-0.7-1.8-1.3-3.8-1.8-5.8C33.2,147.7,34.5,146.1,35.2,144.5z M30.2,139.7
+                                                    c0.3,0.9,0.4,1.8,0,2.5c-1,2.7-4.7,5-8.3,5.5c-0.9,0-2.3,0-3.7-0.7C21.5,143.8,25.6,141.2,30.2,139.7z M14.8,151.4
+                                                    c2.1,1.4,4.8,2.1,7.8,1.8c1.2,0,2.7-0.5,4-1c0.5,2.2,1.1,4.1,1.8,5.7c-6.4,3.6-12.9,6.2-18.7,7.9
+                                                    C10.1,160.4,11.9,155.5,14.8,151.4z M17.3,188.4c-4.3-4.8-6.9-10.6-7.5-17c6.5-1.7,13.6-4.6,20.8-8.5c2.9,5.9,6.7,10.7,11.4,14.5
+                                                    C34.7,181.5,26.5,185.3,17.3,188.4z M46.7,174.3c-4.7-3.4-8.6-8.1-11.5-14.2c8.7-5.3,16.3-11.4,20.6-16.6
+                                                    c4.1,2.8,7.6,6.7,9.8,11.5C62.5,161.6,56,168.3,46.7,174.3z"/>
+                                            </g>
+                                            <g>
+                                                <path class="st0" d="M39.2,256.3c-15.3,0-27.7,12.6-27.7,28.2c0,1.5,0.1,3,0.3,4.4c1.2,12.8,12.5,36.7,27.1,51.9
+                                                    c16.6-19,23.6-37.4,26.2-46c1.2-3.2,1.9-6.7,1.9-10.3C66.9,268.9,54.5,256.3,39.2,256.3z M39.2,295.6c-6,0-10.9-5-10.9-11.1
+                                                    c0-6.1,4.9-11.1,10.9-11.1c6,0,11,5,11,11.1C50.1,290.6,45.2,295.6,39.2,295.6z"/>
+                                            </g>
+                                            <g id="Phone_1_">
+                                                <path class="st0" d="M53.7,31.8v-7.7H45v5.5h-12v-5.5h-8.8l0.1,7.5c0,0-8.1,12.8-11.1,18.1c-3,5.3-3.1,10.1-3.1,10.1v10h57.6
+                                                    V58.3c0-4.3-2.7-8.2-2.7-8.2L53.7,31.8z M33.8,53.4h-5.5v-4.1h5.5V53.4z M33.8,46.7h-5.5v-4.1h5.5V46.7z M33.8,39.9h-5.5v-4.1
+                                                    h5.5V39.9z M41.6,53.4h-5.5v-4.1h5.5V53.4z M41.6,46.7h-5.5v-4.1h5.5V46.7z M41.6,39.9h-5.5v-4.1h5.5V39.9z M49.3,53.4h-5.5v-4.1
+                                                    h5.5V53.4z M49.3,46.7h-5.5v-4.1h5.5V46.7z M49.3,39.9h-5.5v-4.1h5.5V39.9z M20.8,27.4c-4.9,3.9-13.2,3.7-19,2
+                                                    c-0.2,4.2-0.4,9.5,10.3,8.3C22.9,36.5,20.8,27.4,20.8,27.4z M76.5,29.3c-5.8,1.7-14.1,1.9-19-2c0,0-2.1,9.1,8.7,10.3
+                                                    C76.9,38.9,76.7,33.6,76.5,29.3z M21,24.9c0-2.1,0.9-5,6-5.9c5.1-0.9,12.3-1.5,19.9-0.7c7.6,0.8,10.5,2.9,10.5,6.7
+                                                    c10.3,5,18.9,2.4,18.9,2.4s0.5-4-4.3-12.1c-27.5-10.7-57.9-3.6-65.6,0c-2.9,3.2-4.5,12.1-4.5,12.1C12.6,30.6,21,24.9,21,24.9z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g id="MasterLayer_1">
+                                    </g>
+                                </svg> -->
+                                <!-- <svg style="position: absolute; top: -25PX; right: -188PX; width: 250px; height: 320px;">
+                                    <style type="text/css">
+                                        .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#069080;}
+                                    </style>
+                                    <g id="New_Layer">
+                                        <g>
+                                            <g>
+                                                <path class="st0" d="M30,131l-0.6-0.4l0.1,0.8l0.2,9.3l0.2,1l0.6-0.8l2.4-3.1l1.6,2.3l0.2,0.2h2.7l-0.4-0.7l-2.2-3.2l3.7-1l1-0.3
+                                                    l-0.9-0.4L30,131z M25.4,99.4c-11.3,0-20.5,9.4-20.5,20.8c0,11.4,9.2,20.8,20.5,20.8c0.7,0,1.3,0,1.8-0.1l0.4,0l0-0.4l-0.4-2.5
+                                                    l0-0.3l-0.4,0c-0.2,0-0.4,0.1-0.6,0.1c-0.3,0-0.5,0.1-0.8,0.1c-3.6,0-7-1.3-10.1-3.4c12.9-4.7,22.3-11.1,26.9-18
+                                                    c0.3,1.3,0.5,2.6,0.5,3.8c0,4.2-1.5,8.4-4.5,11.6l-0.3,0.4l0.4,0.2l2.1,1.3l0.3,0.2l0.2-0.3c3.2-3.8,5-8.5,5-13.4
+                                                    C46,108.8,36.8,99.4,25.4,99.4z M23.1,106.3c0.5-1.2,0.5-2.3,0.2-3.4c0.7-0.1,1.4-0.3,2.1-0.3c2.3,0,4.6,0.5,6.8,1.5
+                                                    c-2.2,2.7-5.9,5.7-10.3,8.4c-0.4-1.1-0.8-2.2-1.1-3.4C22,108.2,22.7,107.3,23.1,106.3z M20.2,103.5c0.2,0.5,0.2,1,0,1.5
+                                                    c-0.6,1.6-2.8,2.9-4.8,3.2c-0.5,0-1.4,0-2.1-0.4C15.1,105.9,17.5,104.4,20.2,103.5z M11.2,110.3c1.3,0.8,2.8,1.3,4.5,1
+                                                    c0.7,0,1.6-0.3,2.3-0.6c0.3,1.3,0.7,2.4,1.1,3.3c-3.8,2.1-7.5,3.6-10.9,4.6C8.5,115.6,9.5,112.8,11.2,110.3z M12.7,132
+                                                    c-2.5-2.8-4-6.2-4.4-9.9c3.8-1,8-2.7,12.1-5c1.7,3.5,3.9,6.3,6.6,8.5C22.8,127.9,18,130.1,12.7,132z M29.9,123.7
+                                                    c-2.7-2-5-4.7-6.7-8.3c5.1-3.1,9.5-6.7,12-9.7c2.4,1.6,4.5,3.9,5.7,6.7C39.1,116.3,35.3,120.2,29.9,123.7z"/>
+                                            </g>
+                                            <g>
+                                                <path class="st0" d="M25.4,204.1c-9.1,0-16.5,7.5-16.5,16.8c0,0.9,0.1,1.8,0.2,2.6c0.7,7.6,7.4,21.8,16.1,30.9
+                                                    c9.9-11.3,14-22.2,15.5-27.3c0.7-1.9,1.1-4,1.1-6.1C41.9,211.6,34.6,204.1,25.4,204.1z M25.4,227.4c-3.6,0-6.5-2.9-6.5-6.6
+                                                    c0-3.6,2.9-6.6,6.5-6.6c3.6,0,6.5,3,6.5,6.6S29,227.4,25.4,227.4z"/>
+                                            </g>
+                                            <g id="Phone_1_">
+                                                <path class="st0" d="M32.1,22.4v-3.9h-4.3v2.8h-5.9v-2.8h-4.3l0.1,3.8c0,0-4,6.4-5.4,9.1c-1.5,2.7-1.5,5.1-1.5,5.1v5h28.4v-5.7
+                                                    c0-2.2-1.4-4.1-1.4-4.1L32.1,22.4z M22.3,33.2h-2.7v-2h2.7V33.2z M22.3,29.9h-2.7v-2h2.7V29.9z M22.3,26.5h-2.7v-2h2.7V26.5z
+                                                    M26.2,33.2h-2.7v-2h2.7V33.2z M26.2,29.9h-2.7v-2h2.7V29.9z M26.2,26.5h-2.7v-2h2.7V26.5z M30,33.2h-2.7v-2H30V33.2z M30,29.9
+                                                    h-2.7v-2H30V29.9z M30,26.5h-2.7v-2H30V26.5z M15.9,20.2c-2.4,1.9-6.5,1.8-9.3,1c-0.1,2.1-0.2,4.8,5.1,4.2
+                                                    C17,24.7,15.9,20.2,15.9,20.2z M43.3,21.2c-2.9,0.9-6.9,0.9-9.3-1c0,0-1,4.6,4.3,5.1C43.5,25.9,43.5,23.3,43.3,21.2z M16,19
+                                                    c0-1,0.5-2.5,3-3c2.5-0.5,6-0.8,9.8-0.4c3.7,0.4,5.2,1.5,5.2,3.3c5,2.5,9.3,1.2,9.3,1.2s0.3-2-2.1-6c-13.5-5.3-28.5-1.8-32.3,0
+                                                    c-1.4,1.6-2.2,6-2.2,6C11.9,21.8,16,19,16,19z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g id="MasterLayer_1">
+                                    </g>
+                                    </svg> -->
+                                <tr>
+                                    <svg viewBox="0 0 34 32" style="position: absolute; top: 22PX; right: 35PX; width: 34px; height: 32px; margin: 0; padding: 0;">
+                                        <style type="text/css">
+                                            .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#008CC0;}
+                                        </style>
+                                        <g id="New_Layer">
+                                            <g id="Phone_1_">
+                                                <path class="st0" d="M23.4,11.9V8.6h-3.7V11h-5V8.6H11l0.1,3.2c0,0-3.4,5.5-4.7,7.8c-1.3,2.3-1.3,4.3-1.3,4.3v4.3h24.3v-4.9
+                                                    c0-1.9-1.2-3.5-1.2-3.5L23.4,11.9z M15,21.1h-2.3v-1.7H15V21.1z M15,18.3h-2.3v-1.8H15V18.3z M15,15.4h-2.3v-1.8H15V15.4z
+                                                    M18.3,21.1H16v-1.7h2.3V21.1z M18.3,18.3H16v-1.8h2.3V18.3z M18.3,15.4H16v-1.8h2.3V15.4z M21.6,21.1h-2.3v-1.7h2.3V21.1z
+                                                    M21.6,18.3h-2.3v-1.8h2.3V18.3z M21.6,15.4h-2.3v-1.8h2.3V15.4z M9.5,10c-2.1,1.7-5.5,1.6-8,0.8c-0.1,1.8-0.2,4.1,4.4,3.6
+                                                    C10.4,13.9,9.5,10,9.5,10z M33,10.9c-2.5,0.7-5.9,0.8-8-0.8c0,0-0.9,3.9,3.7,4.4C33.2,14.9,33.1,12.7,33,10.9z M9.6,9
+                                                    c0-0.9,0.4-2.1,2.5-2.5c2.1-0.4,5.2-0.7,8.4-0.3C23.7,6.5,25,7.4,25,9c4.3,2.2,8,1,8,1s0.2-1.7-1.8-5.2C19.5,0.2,6.7,3.3,3.4,4.8
+                                                    C2.2,6.2,1.5,10,1.5,10C6.1,11.4,9.6,9,9.6,9z"/>
+                                            </g>
+                                        </g>
+                                        <g id="MasterLayer_1">
+                                        </g>
+                                    </svg>
+                                    <!-- telefono -->
+                                    <td style="position: absolute; top: 22px; right: 76px; font-size: 14px; text-align: right;">
+                                        <span t-field="comp.phone"/>
+                                        <br/>
+                                        <span t-field="comp.mobile"/>
+                                    </td>
+                                </tr>
+                                <br/>
+                                <tr>
+                                    <!-- Website, email -->
+                                    <svg viewBox="0 0 30 32" style="position: absolute; top: 80PX; right: 34PX; width: 30px; height: 32px;">
+                                        <style type="text/css">
+                                            .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#008CC0;}
+                                        </style>
+                                        <g id="MasterLayer_1">
+                                        </g>
+                                        <g>
+                                            <path class="st0" d="M16.5,20.4l-0.4-0.2l0,0.5l0.1,5.8l0.1,0.6l0.4-0.5l1.5-2l1,1.5l0.1,0.1h1.7l-0.3-0.4l-1.3-2l2.3-0.7l0.6-0.2
+                                                l-0.5-0.3L16.5,20.4z M13.6,0.7c-7.1,0-12.8,5.9-12.8,13c0,7.2,5.7,13,12.8,13c0.4,0,0.8,0,1.1,0l0.3,0l0-0.3l-0.2-1.6l0-0.2h-0.3
+                                                c-0.1,0-0.3,0-0.3,0c-0.2,0-0.3,0-0.5,0c-2.3,0-4.4-0.8-6.3-2.1c8.1-2.9,14-6.9,16.9-11.2c0.2,0.8,0.3,1.6,0.3,2.4
+                                                c0,2.6-1,5.2-2.8,7.2l-0.2,0.2l0.3,0.1l1.3,0.8l0.2,0.1l0.1-0.2c2-2.3,3.1-5.3,3.1-8.4C26.5,6.5,20.7,0.7,13.6,0.7z M12.2,5
+                                                c0.3-0.8,0.3-1.5,0.1-2.1c0.4-0.1,0.8-0.2,1.3-0.2c1.4,0,2.9,0.3,4.3,1c-1.4,1.7-3.7,3.5-6.5,5.2c-0.3-0.7-0.5-1.4-0.7-2.1
+                                                C11.4,6.1,11.9,5.6,12.2,5z M10.4,3.3c0.1,0.3,0.1,0.6,0,0.9c-0.4,1-1.7,1.8-3,2C7,6.1,6.5,6.1,6,5.9C7.2,4.7,8.7,3.8,10.4,3.3z
+                                                    M4.7,7.5C5.5,8,6.5,8.3,7.6,8.1c0.5,0,1-0.2,1.5-0.4c0.2,0.8,0.4,1.5,0.7,2.1c-2.3,1.3-4.7,2.3-6.8,2.9C3,10.8,3.7,9,4.7,7.5z
+                                                    M5.7,21c-1.6-1.8-2.5-3.9-2.7-6.2c2.3-0.6,5-1.7,7.6-3.1c1.1,2.2,2.5,3.9,4.1,5.3C12,18.5,9,19.8,5.7,21z M16.4,15.9
+                                                c-1.7-1.3-3.1-3-4.2-5.2c3.2-1.9,5.9-4.2,7.5-6.1c1.5,1,2.8,2.5,3.6,4.2C22.1,11.2,19.8,13.6,16.4,15.9z"/>
+                                        </g>
+                                    </svg>
+
+                                    <td style="position: absolute; top: 72px; right: 68px; font-size: 14px; text-align: right;">
+                                        <span t-field="comp.website"/>
+                                        <br/>
+                                        <span t-field="comp.email"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!-- Ubicacion -->
+                                    <svg viewBox="0 0 30 32" style="position: absolute; top: 125PX; right: 30PX; width: 30px; height: 32px;">
+                                        <style type="text/css">
+                                            .st0{fill-rule:evenodd;clip-rule:evenodd;fill:#008CC0;}
+                                        </style>
+                                        <g>
+                                            <path class="st0" d="M11.2,1.5c-5,0-9,4.1-9,9.2c0,0.5,0,1,0.1,1.4c0.4,4.2,4.1,12,8.8,16.9c5.4-6.2,7.7-12.2,8.5-15
+                                                c0.4-1.1,0.6-2.2,0.6-3.4C20.3,5.6,16.2,1.5,11.2,1.5z M11.2,14.3c-2,0-3.6-1.6-3.6-3.6c0-2,1.6-3.6,3.6-3.6s3.6,1.6,3.6,3.6
+                                                S13.2,14.3,11.2,14.3z"/>
+                                        </g>
+                                        <g id="MasterLayer_1">
+                                        </g>
+                                    </svg>
+                               
+                                    <td style="position: absolute; top: 122px; right: 68px; text-align: right; font-size: 12px; text-align: right">
+                                        <span t-field="comp.street"/>
+                                        <br/>
+                                        <span t-if="comp.city" t-field="comp.city"/> / 
+                                        <span t-if="comp.state_id"  t-field="comp.state_id"/> / 
+                                        <span t-if="comp.country_id"  t-field="comp.country_id"/> / 
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="page" style="position: absolute; margin-right: 5px; margin-left: 15px; top: 0px;">
+                            <style>
+                                .container {
+                                    display: flex; 
+                                    flex-direction: row; 
+                                    <!-- position: relative; -->
+                                }
+                            </style>
+                            <div class="container">
+
+                                <div style="font-size: 35px; position: relative; top: 50px; justify-content: right; right: 25px; text-align: right; margin-top: 35px; margin-bottom: 30px;">
+                                    <strong t-field="o.name"/>
+                                </div>
+
+                                <div class="col-auto mw-100 mb-2" style="position: relative; margin-bottom: 50px; margin-top: 50px; right: 15px;">
+                                    <t t-set="vat_len" t-value="len(o.partner_id.vat) if o.partner_id.vat else 0"/>
+                                    <t t-foreach="o.partner_id" t-as="p">
+                                        <span style="text-align: left; font-weight: bold;">RNC: </span>
+                                        <span t-if="p.vat" t-field="p.vat"/><br/>
+                                        <span style="text-align: left; font-weight: bold;">Email: </span>
+                                        <span t-if="p.email" t-field="p.email"/><br/>
+                                        <span style="text-align: left; font-weight: bold;">Dirección: </span>
+                                        <span t-if="p.street" t-field="p.street"/><br/>
+                                        <span style="font-weight: bold;">Fecha: </span>
+                                        <span t-field="o.invoice_date"/>
+                                    </t>
+                                </div>
+                                <style>
+                                    .table{
+                                        position: relative;
+                                        border-collapse: collapse;
+                                        border-color: transparent;
+                                        font-size: 12px;
+                                        right: 15px;
+                                        width: 100%;
+                                        margin-right:7px;
+                                    }
+                                    
+                                    .td_1 {
+                                        width: 150px;
+                                        text-align: center;
+                                        padding: 0.5em;
+                                        line-height: 0.8;
+                                    }
+                                    .h-1 {
+                                        height: 40px;
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                        text-align: center;
+                                        <!-- background-color: #0B9080; -->
+                                        background-color: #008CC0;
+                                        vertical-align: middle;
+                                        border: hidden;
+                                    }
+                                    .h-2 {
+                                        height: 40px;
+                                        font-size: 16px;
+                                        font-weight: bold;
+                                        text-align: center;
+                                        <!-- background-color: #0B9080; -->
+                                        background-color: #008CC0;
+                                        vertical-align: middle;
+                                        width: 100%;
+                                        border: hidden;
+                                    }
+                                    .head {
+                                        color: white;
+                                        border: hidden;
+                                    }
+                                </style>
+                                <table id="table_custom" class="table">
+                                    <thead class="head_custom">
+                                        <tr class="head">
+                                            <th class="h-1" style="margin: 5px;">
+                                                <span>Cantidad</span>
+                                            </th>
+                                            <th class="h-2">
+                                                <span>Descripción</span>
+                                            </th>
+                                            <th class="h-1">
+                                                <span>Unidad</span>
+                                            </th>
+                                            <th class="h-1">
+                                                <span>Total</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="product_category" t-value="[]"/>
+                                        <t t-foreach="o.invoice_line_ids.sorted(key='sequence')" t-as="line" style="height: 20px;">
+                                            <t t-set="product_category" t-value="product_category+[line.product_id.categ_id]"/>
+                                        </t>
+                                        <tr t-foreach="set(product_category)" t-as="category">
+                                            <tr>
+                                                <td colspan="4" style="background-color:#C9CACD">
+                                                    <div><strong t-esc="category.name"/></div>
+                                                </td>
+                                            </tr>
+                                            <t t-set="total_category" t-value="0.0"/>
+                                            <t t-foreach="o.invoice_line_ids.sorted(key='sequence')" t-as="line">
+                                                <t t-if="category.id == line.product_id.categ_id.id">
+                                                    <tr style="height: 20px;">
+                                                        <td>
+                                                            <span t-field="line.quantity"/>
+                                                        </td>
+                                                        <td class="td_1" style="text-align: left;">
+                                                            <span t-field="line.name"/>
+                                                        </td>
+                                                        <td class="td_1">
+                                                            <span t-field="line.price_unit"/>
+                                                        </td>
+                                                        <td class="td_1">
+                                                            <span t-field="line.price_subtotal"/>
+                                                        </td>
+                                                    </tr>
+                                                    <t t-set="total_category" t-value="total_category + line.price_subtotal"/>
+                                                </t>
+                                            </t>
+                                            <tr>
+                                                <td colspan="3"></td>
+                                                <td class="td_1">
+                                                    <!-- <span t-esc="total_category"/> -->
+                                                    <span t-field="o.currency_id.symbol"/>
+                                                    <span t-esc="total_category"/>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                            
+                            <div class="clearfix" style="margin-top: 20px;">
+                                <div id="total" class="row">
+                                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                        <style>
+                                            .table_tax{
+                                                position: absolute;
+                                                margin: 0px;
+                                                padding: auto;
+                                                right: 30px;
+                                                justify-content: right;
+                                                text-align: right;
+                                                margin-top: 40px;
+                                                width: 40%;
+                                                border-color: transparent;
+                                                border-collapse: collapse;
+                                            }
+                                            .total-text-container{
+                                                padding: 9px;
+                                                text-align: center;
+                                                color: white;
+                                                background-color: #008CC0;
+                                                font-size: 18px;
+                                            }
+                                            .amount-total-container{
+                                                padding: 6px;
+                                                text-align: right;
+                                                right: 5px;
+                                                color: white;
+                                                background-color: #008CC0;
+                                                font-size: 18px;
+                                            }
+                                            .border {
+                                                border: hidden;
+                                                border-bottom: 2px solid black;
+                                            }
+                                        </style>
+                                        <table class="table_tax" style="page-break-inside: avoid;">
+                                            <tr style="border-bottom: solid 1px black;">
+                                                <th style="padding: 10px; text-align: center;">
+                                                    <span>Base imponible</span>
+                                                </th>
+                                                <td>
+                                                    <span t-field="o.amount_untaxed"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding: 10px; text-align: center;">
+                                                    <span>ITBIS</span>
+                                                </th>
+                                                <td>
+                                                    <span t-field="o.amount_tax"/>
+                                                </td>
+                                            </tr>
+                                            <tr class="tr_total">
+                                                <th class="total-text-container">
+                                                    <span>Total</span>
+                                                </th>
+                                                <td class="amount-total-container">
+                                                    <span t-field="o.amount_total"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="text-align: center;">
+                                                    <span>DO -</span>
+                                                    <span t-field="o.price"/>
+                                                </th>
+                                                <td>
+                                                    <span>DOP</span>
+                                                    <span t-field="o.convertion"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                                <style>
+                                    #footer {
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: -300px;
+                                        width: 100%;
+                                        font-size: 18px;
+                                    }
+                                    .cuenta-p{
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 170px;
+                                        font-size: 10px;
+                                        width: 25%;
+                                        border: 1px solid Black
+                                    }
+                                    .cuenta-d{
+                                        position: absolute;
+                                        left: 250px;
+                                        bottom: 170px;
+                                        font-size: 10px;
+                                        width: 25%;
+                                        border: 1px solid Black
+                                    }
+                                </style>
+                                <div id="footer">
+                                    <div class="foat-xxl-start">
+                                        <div style="text-align: left; margin-top: -20px;">
+                                            <div class="cuenta-p">
+                                                <strong style="margin: 2px;">CUENTA BANCARIA (PESOS)</strong><br/>
+                                                <br />
+                                                <span style="margin: 2px;">BANCO POPULAR</span><br/>
+                                                <span style="margin: 2px;">TELECOMUNICACIONES JAMVICO SRL</span><br/>
+                                                <span style="margin: 2px;">RNC: </span>
+                                                <span style="margin: 2px;">132-22789-1</span><br/>
+                                                <span style="margin: 2px;">ID: </span>
+                                                <span style="margin: 2px;">820679181 | CORRIENTE</span><br/>
+                                                <span style="margin: 2px;">EMAIL: </span>
+                                                <span style="margin: 2px;">SOPORTE@JAMVICO.COM</span><br/>
+                                            </div>
+                                            <div class="cuenta-d">
+                                                <strong style="margin: 2px;">CUENTA BANCARIA (DOLARES)</strong><br/>
+                                                <br />
+                                                <span style="margin: 2px;">BANCO BANESCO</span><br/>
+                                                <span style="margin: 2px;">TELECOMUNICACIONES JAMVICO SRL</span><br/>
+                                                <span style="margin: 2px;">RNC: </span>
+                                                <span style="margin: 2px;">132-22789-1</span><br/>
+                                                <span style="margin: 2px;">ID: </span>
+                                                <span style="margin: 2px;">15200025402 | AHORRO</span><br/>
+                                                <span style="margin: 2px;">EMAIL: </span>
+                                                <span style="margin: 2px;">SOPORTE@JAMVICO.COM</span><br/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <style>
+                                        .linea{
+                                            position: absolute;
+                                            display: block;
+                                            border-top: 2px solid black;
+                                            margin: 5px 0;
+                                            width: 280px;
+                                            right: 30px;
+                                            bottom: -30px;
+                                        }
+                                        .firma {
+                                            position: absolute;
+                                            display: block;
+                                            text-align: right;
+                                            font-weight: bold;
+                                            right: 106px;
+                                            bottom: -50px;
+                                        }
+                                        .linea_received{
+                                            position: absolute;
+                                            display: block;
+                                            border-top: 2px solid black;
+                                            margin: 5px 0;
+                                            width: 280px;
+                                            left: 1px;
+                                            justify-content: left;
+                                            bottom: -30px;
+                                        }
+                                        .firma_received{
+                                            position: absolute;
+                                            display: block;
+                                            text-align: left;
+                                            font-weight: bold;
+                                            left: 106px;
+                                            justify-content: left;
+                                            bottom: -50px;
+                                        }
+                                    </style>
+                                    <div class="asignature">
+                                        <img src="/receipt_telecomunications/static/sello_telecomunicaciones.jpg" width="198.2362" height="198.2362" style="position: relative; bottom:-32px; left: 33px;"/>
+                                        <span class="linea"/>
+                                        <span class="firma">Entregado Por</span>
+                                    </div>
+                                    <div class="received">
+                                        <span class="linea_received"/>
+                                        <span class="firma_received">Recibido Por</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            
+                            <svg style="position: absolute; width: 1075px; height: 129.6379px; top: 40px; left: 1px;">
+                                <style type="text/css">
+                                    .st0{fill:#008CC0;}
+                                    .st1{fill:#008CC0;}
+                                    .st2{fill:#134175;}
+                                </style>
+                                <g>
+                                    <polygon class="st0" points="1075,0 801.7,0 748.3,79.3 739.6,79.3 707.8,129.6 1075,129.6 	"/>
+                                    <polygon class="st1" points="0,129.6 672.4,129.6 703.3,80.8 0,80.8 	"/>
+                                    <polygon class="st2" points="1075,14.6 802.6,14.6 751.8,93 742.6,93 719,129.6 1075,129.6 	"/>
+                                    <polygon class="st2" points="671.8,129.6 703,80.8 716.6,80.8 685.9,129.6 	"/>
+                                    <polygon class="st2" points="689.2,129.6 720.4,80.8 734,80.8 703.3,129.6 	"/>
+                                </g>
+                            </svg>
+
+                        </div>
+                    </th>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
